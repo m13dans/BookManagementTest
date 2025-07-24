@@ -1,0 +1,116 @@
+@model IEnumerable<Book>
+@{
+    ViewData["Title"] = "Books DevExtreme";
+}
+
+<style>
+    .rounded-circle {
+        transition: ease
+    }
+    .rounded-circle:hover {
+        background-color: rgb(231, 230, 230) !important; 
+    }
+</style>
+
+<div id="book-grid">
+</div>
+
+@section Scripts {
+    <script>
+        var book = @Html.Raw(Json.Serialize(Model));
+        $(() => {
+            $("#book-grid").dxDataGrid({
+                dataSource: book,
+                columns: [
+                    {
+                        caption: 'No.',
+                        width: 50,
+                        cellTemplate: function (container, cellInfo) {
+                            container.text(cellInfo.rowIndex + 1);
+                        }
+                    },
+                    {
+                        dataField: "id",
+                        dataType: "number",
+                        visible: false
+                    },
+                    {
+                        dataField: "title",
+                        dataType: "string",
+                    },
+                    {
+                        type: 'buttons',
+                        name: 'buttons',
+                        caption: 'Action',
+                        buttons: [
+                            {
+                                name: 'view',
+                                hint: 'View',
+                                icon: 'eyeopen',
+                                cssClass: 'text-dark',
+                                onClick(e) {
+                                    const id = e.row.data.id;
+                                    window.location.href = `/Book/Details/${id}`;
+                                }
+                            },
+                            {
+                                hint: 'Edit',
+                                icon: 'edit',
+                                cssClass: 'text-dark',
+                                onClick(e) {
+                                    const id = e.row.data.id;
+                                    window.location.href = `/Book/Edit/${id}`;
+                                }
+                            },
+                            {
+                                hint: 'Delete',
+                                icon: 'trash',
+                                cssClass: 'text-danger',
+                                onClick(e) {
+                                    const id = e.row.data.id;
+                                    window.location.href = `/Book/Delete/${id}`;
+                                }
+                            },
+
+                        ]
+                    },
+                ],
+                showRowLines: true,
+                rowAlternationEnabled: true,
+                showBorders: true,
+                searchPanel : {
+                    visible: true
+                },
+                headerFilter: {
+                    visible: true,
+                },
+                allowColumnResizing: true,
+                columnAutoWidth: true,
+                columnResizingMode: 'widget',
+                paging: {
+                    enabled: true,
+                    pageSize: 10,
+                },
+                toolbar: {
+                    items: [
+                        {
+                            location: "after",
+                            widget: "dxButton",
+                            options: {
+                                icon: "plus",
+                                hint: "Add Book",
+                                stylingMode: "text",
+                                onClick() {
+                                    window.location.href = `/Book/Create`;
+                                }
+                            }
+                        },
+                        "exportButton",
+                        "columnChooserButton",
+                        "searchPanel"
+                    ]
+                }
+            })
+        })
+    </script>
+}

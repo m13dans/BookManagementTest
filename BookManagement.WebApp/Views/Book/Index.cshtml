@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Book>
+@{
+    ViewData["Title"] = "Books";
+    var index = 0;
+}
+
+<style>
+    .rounded-circle {
+        transition: ease
+    }
+    .rounded-circle:hover {
+        background-color: rgb(231, 230, 230) !important; 
+    }
+</style>
+
+<div class="d-flex justify-content-end">
+    <a asp-action="Create" class="btn btn-sm rounded-circle" title="Create Book">
+        <i class="bi bi-plus-circle"></i>
+    </a>
+</div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>Title</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            index++;
+            <tr>
+                <td>@index</td>
+                <td>@book.Title</td>
+                <td>
+                    <div class="d-flex gap-2">
+                        <a asp-action="Details" asp-route-id="@book.Id" class="text-dark"><i class="bi bi-eye"></i></a>
+                        <a asp-action="Edit" asp-route-id="@book.Id" class="text-dark "><i class="bi bi-pencil"></i></a>
+                        <a asp-action="Delete" asp-route-id="@book.Id" class="text-danger"><i class="bi bi-trash3"></i></a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

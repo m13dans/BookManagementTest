@@ -1,0 +1,34 @@
+﻿@model Book
+@{
+    ViewData["Title"] = "Book";
+}
+
+<div class="row g-3">
+    <form asp-action="Delete" class="col-md-4">
+        <div class="mb-3">
+            <label asp-for="@Model.Title" class="form-label text-sm">Title</label>
+            <input asp-for="@Model.Title" readonly class="form-control" />
+            <span asp-validation-for="@Model.Title" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Author" class="form-label text-sm"></label>
+            <input readonly asp-for="@Model.Author" class="form-control" />
+            <span asp-validation-for="@Model.Author" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.PublicationYear" class="form-label text-sm">Publication Year</label>
+            <input readonly asp-for="@Model.PublicationYear" class="form-control" />
+            <span asp-validation-for="@Model.PublicationYear" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.ISBN" class="form-label text-sm">ISBN</label>
+            <input readonly asp-for="@Model.ISBN" class="form-control" />
+            <span asp-validation-for="@Model.ISBN" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Genre" class="form-label text-sm"></label>
+            <input readonly asp-for="@Model.Genre" class="form-control" />
+        </div>
+
+    </form>
+</div>
